@@ -60,13 +60,9 @@
     "write-file-webpack-plugin": "^3.4.2"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "boilerplate-styles": "^1.0.3",
+    "boilerplate-styles": "^2.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
-=======
-    "boilerplate-styles": "^2.0.0",
->>>>>>> f5e53e14709189410f59a1f7025f62b9761e2983
     "normalize.css": "^5.0.0"
   }
 }
