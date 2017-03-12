@@ -1,9 +1,18 @@
 @import "../node_modules/normalize.css/normalize.css";
 @import "../node_modules/boilerplate-styles/styles/boilerplate.scss";
 
+@font-face {
+    font-family: 'digital7';
+    src: url('./fonts/digital-7-webfont.woff2') format('woff2'),
+         url('./fonts/digital-7-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 
 body {
-    font-family: 'Roboto Condensed', sans-serif;
+    // font-family: 'Roboto Condensed', sans-serif;
+    font-family: 'digital7', sans-serif;
     background-image: url("./images/bg.png");
     background-repeat: repeat;
     display: flex;
@@ -16,17 +25,27 @@ body {
     display: flex;
     flex-direction: column;
     width: 15rem;
+    padding: 0.3rem;
+    background-color: lightgray;
+    border: 2px solid $white;
+    border-bottom-color: black;
+    border-right-color: gray;
 }
 
 #title {
     margin: 0 0.3rem;
+    font-size: 1.6rem;
+    text-align: center;
+    font-weight: bold;
 }
 
 #display {
     margin: 0.3rem;
     height: 3rem;
     background-color: $white;
-    border: 1px solid $black;
+    border: 2px solid $white;
+    border-top-color: black;
+    border-left-color: gray;
 }
 
 #buttons {
@@ -39,7 +58,29 @@ body {
         flex-grow: 1;
 
         button {
+            font-family: 'digital7', sans-serif;
+            font-size: 110%;
             margin: 5px;
+            background-color: $white;
+            color: $black;
+            border: 2px solid $white;
+            border-bottom-color: black;
+            border-right-color: gray;
+
+            &:focus {
+                outline: none;
+            }
+
+            &:active {
+                border: 2px solid $white;
+                border-top-color: black;
+                border-left-color: gray;
+            }
+        }
+
+        #all-clear, #clear-entry {
+            background-color: $orange;
+            color: $white;
         }
 
         #add {
