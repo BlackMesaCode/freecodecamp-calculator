@@ -34,6 +34,7 @@ module.exports = {
         // select files to copy around
         new CopyWebpackPlugin([
             { context: 'src', from: 'images/**/*', to: '' },
+            { context: 'src', from: 'fonts/**/*', to: '' },
             { context: 'src', from: 'favicon.ico', to: '' }
             ], 
             {
