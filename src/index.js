@@ -4,6 +4,7 @@ import "./custom.scss";
 import $ from "jquery";
 window.$ = window.jQuery = $;  // make jQuery globally available
 
+import numeral from "numeral";
 
 
 
@@ -128,5 +129,12 @@ function toPercent() {
 
 
 function displayResult(result) {
-    $("#display").text(result);
+    // rounding and formatting to avoid numbers overflowing the viewport
+    result = roundNumber(parseFloat(result), 5)
+    $("#display").text(result > 999999999 ? result.toExponential(9) : result);
+}
+
+
+function roundNumber(num, dec) {
+    return Math.round(num * Math.pow(10, dec)) / Math.pow(10, dec);
 }

@@ -63,6 +63,7 @@
     "boilerplate-styles": "^2.0.0",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
-    "normalize.css": "^5.0.0"
+    "normalize.css": "^5.0.0",
+    "numeral": "^2.0.4"
   }
 }
