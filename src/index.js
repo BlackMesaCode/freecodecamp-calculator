@@ -14,18 +14,19 @@ $(() => {
 
 });
 
+
 function setupHandlers() {
 
-    $("#_0").click(() => { addDigit(0); });
-    $("#_1").click(() => { addDigit(1); });
-    $("#_2").click(() => { addDigit(2); });
-    $("#_3").click(() => { addDigit(3); });
-    $("#_4").click(() => { addDigit(4); });
-    $("#_5").click(() => { addDigit(5); });
-    $("#_6").click(() => { addDigit(6); });
-    $("#_7").click(() => { addDigit(7); });
-    $("#_8").click(() => { addDigit(8); });
-    $("#_9").click(() => { addDigit(9); });
+    $("#_0").click(() => { addDigit("0"); });
+    $("#_1").click(() => { addDigit("1"); });
+    $("#_2").click(() => { addDigit("2"); });
+    $("#_3").click(() => { addDigit("3"); });
+    $("#_4").click(() => { addDigit("4"); });
+    $("#_5").click(() => { addDigit("5"); });
+    $("#_6").click(() => { addDigit("6"); });
+    $("#_7").click(() => { addDigit("7"); });
+    $("#_8").click(() => { addDigit("8"); });
+    $("#_9").click(() => { addDigit("9"); });
 
     $("#dot").click(() => { addDigit("."); });
 
@@ -33,71 +34,99 @@ function setupHandlers() {
     $("#subtract").click(() => { execute(subtract) });
     $("#multiply").click(() => { execute(multiply) });
     $("#divide").click(() => { execute(divide) });
+    $("#to-percent").click(() => { toPercent() });
 
     $("#calculate-result").click(() => { calculateResult(); });
 
-    $("#clear-all").click(() => { clearAll(); });
+    $("#all-clear").click(() => { clearAll(); });
     $("#clear-entry").click(() => { clearEntry(); });
 
 }
 
-let awaitingInput;
+
+let operationExecuted;
+let resultCalculated;
 let currentInput;
-let lastOperation;
+let nextOperation;
 let firstOperand;
 let secondOperand;
+
 
 function add(a, b) { return a + b; }
 function subtract(a, b) { return a - b; }
 function multiply(a, b) { return a * b; }
-function divide(a, b) { return a / b; }
+function divide(a, b) { return b === 0 ? 0 : a / b; }
+
 
 function calculateResult() {
     execute(add);
-    
-    awaitingInput = false;
-    $("#display").text(firstOperand);
+    displayResult(firstOperand);
+    resultCalculated = true;
 }
 
 function clearAll() {
     firstOperand = 0.0;
     secondOperand = 0.0;
 
-    lastOperation = add;
-    currentInput = "";
+    nextOperation = add;
+    currentInput = "0";
 
-    awaitingInput = true;
+    operationExecuted = true;
 
-     $("#display").text(currentInput)
+     displayResult(currentInput)
 }
 
 function clearEntry() {
-    currentInput = "";
-    $("#display").text(currentInput)
+    if (operationExecuted) {
+        clearAll();
+    }
+    else {
+        currentInput = "0";
+        displayResult(currentInput)
+    }
 }
 
 function execute(operation) {
-    if (awaitingInput) {
-        lastOperation = operation;
+    if (resultCalculated) {
+        resultCalculated = false;
+    }
+
+    if (operationExecuted) {
+        nextOperation = operation;
     }
     else {
         secondOperand = currentInput ? parseFloat(currentInput) : 0.0
-        firstOperand = Math.round(lastOperation(firstOperand, secondOperand) * 10) / 10;
+        firstOperand = nextOperation(firstOperand, secondOperand);
 
-        lastOperation = operation;
+        nextOperation = operation;
         currentInput = "";
 
-        awaitingInput = true;
+        operationExecuted = true;
 
-        $("#display").text(firstOperand);
+        displayResult(firstOperand);
     }
 }
 
 
 function addDigit(digit) {
-    currentInput += digit;
 
-    awaitingInput = false;
+    if (resultCalculated) {
+        clearAll();
+        resultCalculated = false;
+    }
+    currentInput = currentInput === "0" ? digit : currentInput + digit;
+    operationExecuted = false;
 
-    $("#display").text(currentInput);
+    displayResult(currentInput);
+}
+
+function toPercent() {
+    currentInput = parseFloat($("#display").text()) / 100;
+    operationExecuted = false;
+    displayResult(currentInput);
+}
+
+
+function displayResult(result) {
+    $("#display").text(result);
 }
