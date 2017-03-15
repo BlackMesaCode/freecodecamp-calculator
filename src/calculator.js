@@ -4,7 +4,7 @@ import $ from "jquery";
 
 
 /**
- * A basic calculator that supports the four basic arithmetic operations
+ * A calculator that supports the four basic arithmetic operations
  * @class Calculator
  */
 export default class Calculator {
